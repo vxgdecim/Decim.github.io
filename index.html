@@ -1,42 +1,148 @@
-<script>
-const rankValues = {
-  "Iron": 5,
-  "Bronze": 7,
-  "Silver": 10,
-  "Gold": 15,
-  "Platinum": 20,
-  "Diamond": 30,
-  "Immortal": 50
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valorant Boosting Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Orbitron',sans-serif; background:#0f1923; color:white; }
+.hero { position:relative; width:100%; height:500px; overflow:hidden; }
+.hero img { width:100%; height:100%; object-fit:cover; }
+.hero-overlay {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background:rgba(15,25,35,0.7);
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center; padding:20px;
+}
+.hero-overlay h1 { font-size:3em; color:#ff4655; margin:0 0 10px 0; }
+.hero-overlay p { font-size:1.2em; margin:0 0 20px 0; }
+.btn { display:inline-block; padding:12px 25px; border-radius:10px; text-decoration:none; font-weight:bold; margin:5px; }
+.discord { background:#5865F2; color:white; }
+.email { background:#28a745; color:white; }
+.section { padding:50px 20px; text-align:center; }
+.card { background:#1a242f; padding:20px; border-radius:15px; width:300px; margin:auto; box-shadow:0 0 20px rgba(255,70,85,0.5); }
+select { width:100%; padding:10px; margin:5px 0; border-radius:8px; border:none; }
+button { margin-top:10px; padding:10px 20px; border:none; background:#ff4655; color:white; border-radius:10px; cursor:pointer; }
+footer { padding:20px; font-size:0.8em; opacity:0.7; text-align:center; }
+@media(max-width:768px){ .hero-overlay h1{font-size:2em;} .hero-overlay p{font-size:1em;} }
+</style>
+</head>
+<body>
 
+<header class="hero">
+  <img src="https://images.unsplash.com/photo-1625487811200-2f03b3120cbb?auto=format&fit=crop&w=1470&q=80" alt="Valorant Banner">
+  <div class="hero-overlay">
+    <h1>Valorant Boosting</h1>
+    <p>Fast & Reliable Rank Boosting – Select Your Ranks!</p>
+    <a class="btn discord" href="https://discord.gg/xhaFE783" target="_blank">Join Discord</a>
+    <a class="btn email" href="mailto:spyroselotor@gmail.com?subject=Valorant Boost Order" target="_blank">Email Us</a>
+  </div>
+</header>
+
+<section class="section">
+  <h2>💰 Order Boost</h2>
+  <div class="card">
+    <p>Select your ranks:</p>
+    <select id="fromRank">
+      <option value="">From Rank</option>
+      <option>Iron I</option><option>Iron II</option><option>Iron III</option>
+      <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
+      <option>Silver I</option><option>Silver II</option><option>Silver III</option>
+      <option>Gold I</option><option>Gold II</option><option>Gold III</option>
+      <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
+      <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
+      <option>Immortal</option>
+    </select>
+
+    <select id="toRank">
+      <option value="">To Rank</option>
+      <option>Iron I</option><option>Iron II</option><option>Iron III</option>
+      <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
+      <option>Silver I</option><option>Silver II</option><option>Silver III</option>
+      <option>Gold I</option><option>Gold II</option><option>Gold III</option>
+      <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
+      <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
+      <option>Immortal</option>
+    </select>
+
+    <p>Price: $<span id="price">0</span></p>
+    <button onclick="orderBoost()">Order Now</button>
+  </div>
+</section>
+
+<section class="section reviews">
+  <h2>⭐ Customer Reviews</h2>
+  <p>"Very professional, highly recommended!"</p>
+  <p>"Fast communication and reliable service."</p>
+  <p>"Smooth experience and great boosting service."</p>
+</section>
+
+<footer>
+  <p>Not affiliated with Riot Games. Use at your own risk.</p>
+</footer>
+
+<script>
+// All divisions for dynamic pricing
+const divisions = [
+"Iron I","Iron II","Iron III",
+"Bronze I","Bronze II","Bronze III",
+"Silver I","Silver II","Silver III",
+"Gold I","Gold II","Gold III",
+"Platinum I","Platinum II","Platinum III",
+"Diamond I","Diamond II","Diamond III",
+"Immortal"
+];
+
+// Price per division
+function getPricePerStep(rank){
+  if(rank.includes("Iron")) return 2;
+  if(rank.includes("Bronze")) return 3;
+  if(rank.includes("Silver")) return 4;
+  if(rank.includes("Gold")) return 6;
+  if(rank.includes("Platinum")) return 8;
+  if(rank.includes("Diamond")) return 12;
+  if(rank.includes("Immortal")) return 20;
+  return 0;
+}
+
+// Update dynamic price
 function updatePrice(){
   const from = document.getElementById("fromRank").value;
   const to = document.getElementById("toRank").value;
 
-  if(!from || !to){
-    document.getElementById("price").innerText = 0;
-    return;
-  }
+  if(!from || !to){ document.getElementById("price").innerText = 0; return; }
 
-  const ranks = ["Iron","Bronze","Silver","Gold","Platinum","Diamond","Immortal"];
+  const fromIndex = divisions.indexOf(from);
+  const toIndex = divisions.indexOf(to);
 
-  const fromIndex = ranks.indexOf(from);
-  const toIndex = ranks.indexOf(to);
-
-  if(toIndex <= fromIndex){
-    document.getElementById("price").innerText = "Invalid";
-    return;
-  }
+  if(toIndex <= fromIndex){ document.getElementById("price").innerText = "Invalid"; return; }
 
   let total = 0;
-
   for(let i = fromIndex; i < toIndex; i++){
-    total += rankValues[ranks[i]];
+    total += getPricePerStep(divisions[i]);
   }
-
   document.getElementById("price").innerText = total;
 }
 
+// Event listeners
 document.getElementById("fromRank").onchange = updatePrice;
 document.getElementById("toRank").onchange = updatePrice;
+
+// Order function
+function orderBoost(){
+  const from = document.getElementById("fromRank").value;
+  const to = document.getElementById("toRank").value;
+  const price = document.getElementById("price").innerText;
+
+  if(!from || !to){ alert("Select ranks first!"); return; }
+
+  const message = `Hello, I want a boost from ${from} to ${to} for $${price}`;
+  window.open("https://discord.gg/xhaFE783", "_blank");
+  window.open(`mailto:spyroselotor@gmail.com?subject=Boost Order&body=${encodeURIComponent(message)}`);
+  alert("Order info prepared! Opened Discord & Email.");
+}
 </script>
+
+</body>
+</html>
