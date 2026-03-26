@@ -3,47 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valorant Boosting Service</title>
+<title>Valorant Boosting</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
 <style>
 body { margin:0; font-family:'Orbitron',sans-serif; background:#0f1923; color:white; }
-.hero { position:relative; width:100%; height:500px; overflow:hidden; }
+
+.hero { position:relative; height:500px; }
 .hero img { width:100%; height:100%; object-fit:cover; }
 .hero-overlay {
   position:absolute; top:0; left:0; width:100%; height:100%;
-  background:rgba(15,25,35,0.7);
+  background:rgba(0,0,0,0.6);
   display:flex; flex-direction:column; justify-content:center; align-items:center;
-  text-align:center; padding:20px;
 }
-.hero-overlay h1 { font-size:3em; color:#ff4655; margin:0 0 10px 0; }
-.hero-overlay p { font-size:1.2em; margin:0 0 20px 0; }
-.btn { display:inline-block; padding:12px 25px; border-radius:10px; text-decoration:none; font-weight:bold; margin:5px; }
-.discord { background:#5865F2; color:white; }
-.email { background:#28a745; color:white; }
-.section { padding:50px 20px; text-align:center; }
-.card { background:#1a242f; padding:20px; border-radius:15px; width:300px; margin:auto; box-shadow:0 0 20px rgba(255,70,85,0.5); }
-select { width:100%; padding:10px; margin:5px 0; border-radius:8px; border:none; }
-button { margin-top:10px; padding:10px 20px; border:none; background:#ff4655; color:white; border-radius:10px; cursor:pointer; }
-footer { padding:20px; font-size:0.8em; opacity:0.7; text-align:center; }
-@media(max-width:768px){ .hero-overlay h1{font-size:2em;} .hero-overlay p{font-size:1em;} }
+
+h1 { color:#ff4655; font-size:3em; margin:0; }
+.btn {
+  padding:10px 20px; border-radius:10px; margin:5px;
+  text-decoration:none; color:white; font-weight:bold;
+}
+.discord { background:#5865F2; }
+.email { background:#28a745; }
+
+.section { padding:40px; text-align:center; }
+
+.card {
+  background:#1a242f;
+  padding:20px;
+  border-radius:15px;
+  width:320px;
+  margin:auto;
+  box-shadow:0 0 20px rgba(255,70,85,0.4);
+}
+
+select, label {
+  width:100%;
+  margin:5px 0;
+}
+
+input[type="checkbox"] {
+  margin-right:5px;
+}
+
+button {
+  margin-top:10px;
+  padding:10px;
+  width:100%;
+  background:#ff4655;
+  border:none;
+  color:white;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.price {
+  font-size:1.5em;
+  margin-top:10px;
+  color:#00ffcc;
+}
 </style>
 </head>
+
 <body>
 
-<header class="hero">
-  <img src="https://images.unsplash.com/photo-1625487811200-2f03b3120cbb?auto=format&fit=crop&w=1470&q=80" alt="Valorant Banner">
+<div class="hero">
+  <img src="https://images.unsplash.com/photo-1625487811200-2f03b3120cbb?auto=format&fit=crop&w=1470&q=80">
   <div class="hero-overlay">
     <h1>Valorant Boosting</h1>
-    <p>Fast & Reliable Rank Boosting – Select Your Ranks!</p>
-    <a class="btn discord" href="https://discord.gg/xhaFE783" target="_blank">Join Discord</a>
-    <a class="btn email" href="mailto:spyroselotor@gmail.com?subject=Valorant Boost Order" target="_blank">Email Us</a>
+    <p>Fast & Secure Rank Boosting</p>
+    <a class="btn discord" href="https://discord.gg/xhaFE783" target="_blank">Discord</a>
+    <a class="btn email" href="mailto:spyroselotor@gmail.com">Email</a>
   </div>
-</header>
+</div>
 
-<section class="section">
+<div class="section">
   <h2>💰 Order Boost</h2>
+
   <div class="card">
-    <p>Select your ranks:</p>
+
     <select id="fromRank">
       <option value="">From Rank</option>
       <option>Iron I</option><option>Iron II</option><option>Iron III</option>
@@ -66,24 +103,18 @@ footer { padding:20px; font-size:0.8em; opacity:0.7; text-align:center; }
       <option>Immortal</option>
     </select>
 
-    <p>Price: $<span id="price">0</span></p>
-    <button onclick="orderBoost()">Order Now</button>
+    <!-- EXTRA OPTIONS -->
+    <label><input type="checkbox" id="express"> ⚡ Express Boost (+50%)</label>
+    <label><input type="checkbox" id="duo"> 🎮 Duo Queue (+40%)</label>
+    <label><input type="checkbox" id="vpn"> 🔒 VPN Protection (+20%)</label>
+
+    <div class="price">$<span id="price">0</span></div>
+
+    <button onclick="order()">Order Now</button>
   </div>
-</section>
-
-<section class="section reviews">
-  <h2>⭐ Customer Reviews</h2>
-  <p>"Very professional, highly recommended!"</p>
-  <p>"Fast communication and reliable service."</p>
-  <p>"Smooth experience and great boosting service."</p>
-</section>
-
-<footer>
-  <p>Not affiliated with Riot Games. Use at your own risk.</p>
-</footer>
+</div>
 
 <script>
-// All divisions for dynamic pricing
 const divisions = [
 "Iron I","Iron II","Iron III",
 "Bronze I","Bronze II","Bronze III",
@@ -94,8 +125,7 @@ const divisions = [
 "Immortal"
 ];
 
-// Price per division
-function getPricePerStep(rank){
+function getPrice(rank){
   if(rank.includes("Iron")) return 2;
   if(rank.includes("Bronze")) return 3;
   if(rank.includes("Silver")) return 4;
@@ -103,44 +133,47 @@ function getPricePerStep(rank){
   if(rank.includes("Platinum")) return 8;
   if(rank.includes("Diamond")) return 12;
   if(rank.includes("Immortal")) return 20;
-  return 0;
 }
 
-// Update dynamic price
-function updatePrice(){
+function calcPrice(){
   const from = document.getElementById("fromRank").value;
   const to = document.getElementById("toRank").value;
 
   if(!from || !to){ document.getElementById("price").innerText = 0; return; }
 
-  const fromIndex = divisions.indexOf(from);
-  const toIndex = divisions.indexOf(to);
-
-  if(toIndex <= fromIndex){ document.getElementById("price").innerText = "Invalid"; return; }
-
   let total = 0;
-  for(let i = fromIndex; i < toIndex; i++){
-    total += getPricePerStep(divisions[i]);
+  let start = divisions.indexOf(from);
+  let end = divisions.indexOf(to);
+
+  if(end <= start){ document.getElementById("price").innerText="Invalid"; return; }
+
+  for(let i=start;i<end;i++){
+    total += getPrice(divisions[i]);
   }
-  document.getElementById("price").innerText = total;
+
+  // extras
+  if(document.getElementById("express").checked) total *= 1.5;
+  if(document.getElementById("duo").checked) total *= 1.4;
+  if(document.getElementById("vpn").checked) total *= 1.2;
+
+  document.getElementById("price").innerText = Math.round(total);
 }
 
-// Event listeners
-document.getElementById("fromRank").onchange = updatePrice;
-document.getElementById("toRank").onchange = updatePrice;
+document.querySelectorAll("select,input").forEach(el=>{
+  el.addEventListener("change", calcPrice);
+});
 
-// Order function
-function orderBoost(){
+function order(){
   const from = document.getElementById("fromRank").value;
   const to = document.getElementById("toRank").value;
   const price = document.getElementById("price").innerText;
 
-  if(!from || !to){ alert("Select ranks first!"); return; }
+  if(!from || !to){ alert("Select ranks first"); return; }
 
-  const message = `Hello, I want a boost from ${from} to ${to} for $${price}`;
-  window.open("https://discord.gg/xhaFE783", "_blank");
-  window.open(`mailto:spyroselotor@gmail.com?subject=Boost Order&body=${encodeURIComponent(message)}`);
-  alert("Order info prepared! Opened Discord & Email.");
+  const msg = `Boost from ${from} to ${to} - $${price}`;
+  
+  window.open("https://discord.gg/xhaFE783","_blank");
+  window.open(`mailto:spyroselotor@gmail.com?subject=Order&body=${encodeURIComponent(msg)}`);
 }
 </script>
 
