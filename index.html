@@ -1,26 +1,30 @@
-<header>
-  <div class="hero">
-    <img src="https://images.unsplash.com/photo-1625487811200-2f03b3120cbb?auto=format&fit=crop&w=1470&q=80" alt="Valorant Banner">
-    <div class="hero-overlay">
-      <h1>Valorant Boosting Service</h1>
-      <p>Fast & Reliable Rank Boosting – Join Our Discord!</p>
-      <a class="discord" href="https://discord.gg/xhaFE783" target="_blank">Join Discord</a>
-    </div>
-  </div>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valorant Boosting Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 
 <style>
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: #0f1923;
+  color: white;
+}
+
+/* HERO SECTION */
 .hero {
   position: relative;
   width: 100%;
-  max-height: 600px;
+  height: 500px;
   overflow: hidden;
 }
 
 .hero img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -28,7 +32,7 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(15,25,35,0.6);
+  background: rgba(15,25,35,0.7);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,7 +50,6 @@
 
 .hero-overlay p {
   font-size: 1.2em;
-  color: white;
   margin: 0 0 20px 0;
 }
 
@@ -65,13 +68,132 @@
   background: #4752c4;
 }
 
-/* Responsive for mobile */
+/* PRICING CARDS */
+.section {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.pricing {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #1a242f;
+  padding: 20px;
+  border-radius: 15px;
+  width: 250px;
+  box-shadow: 0 0 20px rgba(255,70,85,0.5);
+  transition: transform 0.3s;
+}
+
+.card img {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.card:hover { transform: scale(1.05); }
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: #ff4655;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+button:hover { background: #ff1a3a; }
+
+/* CUSTOMER REVIEWS */
+.reviews p {
+  margin: 10px 0;
+  font-style: italic;
+}
+
+/* FOOTER */
+footer {
+  padding: 20px;
+  font-size: 0.8em;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .hero-overlay h1 {
-    font-size: 2em;
-  }
-  .hero-overlay p {
-    font-size: 1em;
-  }
+  .hero-overlay h1 { font-size: 2em; }
+  .hero-overlay p { font-size: 1em; }
 }
 </style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <img src="https://images.unsplash.com/photo-1625487811200-2f03b3120cbb?auto=format&fit=crop&w=1470&q=80" alt="Valorant Banner">
+  <div class="hero-overlay">
+    <h1>Valorant Boosting Service</h1>
+    <p>Fast & Reliable Rank Boosting – Join Our Discord!</p>
+    <a class="discord" href="https://discord.gg/xhaFE783" target="_blank">Join Discord</a>
+  </div>
+</header>
+
+<!-- PRICING -->
+<section class="section">
+  <h2>💰 Pricing</h2>
+  <div class="pricing">
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/6/6f/Iron_rank_icon_valorant.png" alt="Iron rank">
+      <h3>Iron → Gold</h3>
+      <p>$20</p>
+      <button onclick="joinDiscord()">Order Now</button>
+    </div>
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/2/2f/Gold_rank_icon_valorant.png" alt="Gold rank">
+      <h3>Gold → Diamond</h3>
+      <p>$50</p>
+      <button onclick="joinDiscord()">Order Now</button>
+    </div>
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/5/52/Immortal_rank_icon_valorant.png" alt="Immortal rank">
+      <h3>Diamond → Immortal</h3>
+      <p>$100</p>
+      <button onclick="joinDiscord()">Order Now</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews">
+  <h2>⭐ Customer Reviews</h2>
+  <p>"Very professional, highly recommended!"</p>
+  <p>"Fast communication and reliable service."</p>
+  <p>"Smooth experience and great boosting service."</p>
+</section>
+
+<!-- CONTACT -->
+<section class="section">
+  <h2>📩 Contact</h2>
+  <p>Join our Discord to place an order:</p>
+  <a class="discord" href="https://discord.gg/xhaFE783" target="_blank">Join Discord</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Not affiliated with Riot Games. Use at your own risk.</p>
+</footer>
+
+<script>
+function joinDiscord() {
+  window.open("https://discord.gg/xhaFE783", "_blank");
+}
+</script>
+
+</body>
+</html>
