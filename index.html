@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valorant Boosting</title>
+<title>Valorant Boosting Service</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 
@@ -11,22 +11,36 @@
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(135deg, #0f1923, #1f2a35);
   color: white;
-  text-align: center;
+  background: url('https://images.unsplash.com/photo-1625487811200-2f03b3120cbb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.overlay {
+  background-color: rgba(15, 25, 35, 0.85);
+  min-height: 100vh;
+  padding: 0;
 }
 
 header {
-  padding: 50px;
+  text-align: center;
+  padding: 80px 20px 40px 20px;
 }
 
 h1 {
   font-size: 3em;
   color: #ff4655;
+  margin: 0;
+}
+
+p.subtitle {
+  font-size: 1.2em;
+  margin-top: 10px;
 }
 
 .section {
-  padding: 50px;
+  padding: 50px 20px;
+  text-align: center;
 }
 
 .pricing {
@@ -37,11 +51,16 @@ h1 {
 }
 
 .card {
-  background: #1a242f;
+  background: rgba(26, 36, 47, 0.95);
   padding: 20px;
   border-radius: 15px;
   width: 250px;
-  box-shadow: 0 0 15px rgba(255,70,85,0.3);
+  box-shadow: 0 0 20px rgba(255,70,85,0.5);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 button {
@@ -52,6 +71,11 @@ button {
   color: white;
   cursor: pointer;
   border-radius: 10px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #ff1a3a;
 }
 
 a.discord {
@@ -62,59 +86,57 @@ a.discord {
   color: white;
   text-decoration: none;
   border-radius: 10px;
+  font-weight: bold;
 }
 
 footer {
   padding: 20px;
   font-size: 0.8em;
-  opacity: 0.6;
+  opacity: 0.7;
+  text-align: center;
 }
+
 </style>
-
 </head>
-
 <body>
 
+<div class="overlay">
 <header>
   <h1>Valorant Boosting Service</h1>
-  <p>Fast, reliable rank boosting</p>
+  <p class="subtitle">Fast, reliable rank boosting – join our Discord to order</p>
 </header>
 
 <section class="section">
   <h2>💰 Pricing</h2>
   <div class="pricing">
-    
     <div class="card">
       <h3>Iron → Gold</h3>
       <p>$20</p>
-      <button onclick="joinDiscord()">Order</button>
+      <button onclick="joinDiscord()">Order Now</button>
     </div>
-
     <div class="card">
       <h3>Gold → Diamond</h3>
       <p>$50</p>
-      <button onclick="joinDiscord()">Order</button>
+      <button onclick="joinDiscord()">Order Now</button>
     </div>
-
     <div class="card">
       <h3>Diamond → Immortal</h3>
       <p>$100</p>
-      <button onclick="joinDiscord()">Order</button>
+      <button onclick="joinDiscord()">Order Now</button>
     </div>
-
   </div>
 </section>
 
 <section class="section">
   <h2>⭐ Customer Reviews</h2>
-  <p>"Great service, fast and smooth!"</p>
-  <p>"Very professional and easy communication."</p>
-  <p>"Highly recommended boosting service."</p>
+  <p>"Very professional, highly recommended!"</p>
+  <p>"Fast communication and reliable service."</p>
+  <p>"Smooth experience and great boosting service."</p>
 </section>
 
 <section class="section">
   <h2>📩 Contact</h2>
-  <p>Join our Discord server to place your order:</p>
+  <p>Join our Discord to place an order:</p>
   <a class="discord" href="https://discord.gg/xhaFE783" target="_blank">Join Discord</a>
 </section>
 
@@ -128,5 +150,6 @@ function joinDiscord() {
 }
 </script>
 
+</div>
 </body>
 </html>
